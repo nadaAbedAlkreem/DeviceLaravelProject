@@ -34,7 +34,7 @@
             
               <!-- /.card-header -->
               <!-- form start -->
-              <form  method="post" action="{{route('category.actionAdd')}}">
+              <form  method="post" action="{{route('category.actionAdd')}}" enctype="multipart/form-data" >
               @csrf 
 
 

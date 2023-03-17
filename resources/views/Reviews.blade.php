@@ -98,11 +98,12 @@
         processing: true,
         serverSide: true,
         ajax: {
-           url:"{{route('Reviews.view')}}" ,
-           data: function (d) {
-                         d.search = $('#search').val()
+           url:"{{route('Reviews.view')}}" 
+          //  ,
+          //  data: function (d) {
+          //                d.search = $('#search').val()
 
-             }
+          //    }
         },
         columns: [
                     {data: 'id', name: 'id'},

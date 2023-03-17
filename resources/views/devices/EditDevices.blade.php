@@ -3,8 +3,24 @@
 
 
 
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        
+        <script>
+          tinymce.init({
+            selector: 'textarea#editor',
+          });
+        </script>
 
-<div class="content-wrapper">
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -101,8 +117,9 @@
                   <div class="form-group">
                   <label for="description" class="col-sm-2 col-form-label">description</label>
                         <div class="col-sm-10">
-                          <textarea  type="text" class="form-control"   class="span6" rows="3"   name="description" id="description" placeholder="description">{{$value->description}}</textarea>
-                        </div>
+                          <!-- <textarea  type="text" class="form-control"   class="span6" rows="3"   name="description" id="description" placeholder="description">{{$value->description}}</textarea> -->
+                            <textarea id="editor" class="form-control"   name="description" id="description" placeholder="description">{{$value->description}}</textarea>
+                         </div>
                   </div>
                   <div>
                     

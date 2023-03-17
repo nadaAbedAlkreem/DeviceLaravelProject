@@ -1,6 +1,21 @@
 @extends('layouts.app')
 @section('content')
 
+ 
+
+
+<head>
+  <title>Laravel - Dynamic autocomplete search using select2 JS Ajax-nicesnippets.com</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+ 
 
 <body class="hold-transition sidebar-mini">
 
@@ -54,7 +69,7 @@
               </div>
               <div class="form-group">
                 <label><strong>category :</strong></label>
-                <select id='category' class="form-control" style="width: 200px">
+                <!-- <select id='category' class="form-control" style="width: 200px">
                         <option value="-1" >all </option>
                      @if(!empty($data))
                           @foreach($data as $item)
@@ -63,7 +78,9 @@
                            @endif
                           @endforeach                         
                         @endif
-                </select>
+                </select> -->
+                <select class="itemName form-control"   id='category'  style="width: 200px"  name="itemName"></select>
+
                </div>
  
          <table class="table table-bordered data-table  table-sm">
@@ -72,23 +89,19 @@
             
                      <th>id</th>
                      <th>name</th>
- 
-                    <th>code</th>
-                    <th>price</th>
-                    <th>discount</th>
-                    <th>Quantity	</th>
-                    <th>description	</th>
-                    <th>image	</th>
-
+                     <th>code</th>
+                     <th>price</th>
+                     <th>Quantity</th>
+                     <th>description</th>
+                     <th>image	</th>
                      <th>created_at</th>
-                    <th>updated_at</th>
-                    <th>action</th>
+                     <th>action</th>
 
 
       
-                      </tr>
-               </thead>
-                <tbody>
+                 </tr>
+             </thead>
+              <tbody>
                   <tr>
                
                   </tr>
@@ -114,44 +127,66 @@
 </body>
      
 <script type="text/javascript">
-     
+       $('.itemName').select2({
+  placeholder: 'Select an item',
+  ajax: {
+    url: '/select2-autocomplete-ajax-device',
+    dataType: 'json',
+    delay: 250,
+    processResults: function (data) {
+      return {
+        results:  $.map(data, function (item) {
+              return {
+                  text: item.name,
+                  id: item.id
+              }
+          })
+      };
+    },
+    // cache: true
+  }
+});
   $(function () {
       
     var table = $('.data-table').DataTable({
         searching: false,
         processing: true,
         serverSide: true,
-        ajax: {
+        pageLength: 5 , 
+         ajax: {
            url:"{{route('devices.view')}}" ,
            data: function (d) {
+            //id="select2-category-container"
                         d.category = $('#category').val(),
-                        d.search = $('#search').val()
+                        // alert($('#category').val());
 
+                        d.search = $('#search').val()
+ 
              }
         },
         columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                     {data: 'code', name: 'code'},
+                    {data: 'code', name: 'code'},
                     {data: 'price', name: 'price'},
-                    {data: 'discount', name: 'discount'},
                     {data: 'Quantity', name: 'Quantity'},
                     {data: 'description', name: 'description'},
                     {data: 'image', name: 'image'},
-
-                     {data: 'created_at', name: 'created_at'},
-                    {data: 'updated_at', name: 'updated_at'},
+                    {data: 'created_at', name: 'created_at'},
                     {data: 'action',     name: 'action', orderable: false, searchable: false}
 
         ]
     });
   
       
-    $('#search').keyup(function(){
-              table.draw();
-             });
-             $('#category').change(function(){
-          table.draw();
+           $('#search').keyup(function(){
+                 table.draw();
+                });
+                //id="select2-category-results"
+             $('.select2-results__option').click(function(event){
+              console.log('test');
+                  table.draw();
+                  alert('test');
               });
 
         });
@@ -197,7 +232,10 @@ $(".data-table").on('click', '.deleteRecord[data-id]', function (e) {
 
     
 });
- 
+  
+
+
+
 
   </script>
 

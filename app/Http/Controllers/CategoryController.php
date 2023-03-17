@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category ; 
 use App\Http\Requests\CategoryRequest ; 
 use DataTables;
+use Illuminate\Support\Facades\Storage;
 
 
 class CategoryController extends Controller
@@ -60,17 +61,17 @@ class CategoryController extends Controller
    public function actionEditCategory(CategoryRequest $request )
    {
     $id = $request['id'] ; 
-    $image = $request['image'] ; 
-    $category = Category::find($id);
+    $image = $request->file('image') ; 
+     $category = Category::find($id);
      if(!empty($request['name'])){
       $category->name = $request['name'];
 
      }
-    
+ 
 
     if(!empty($image)){
-      $path = 'uploads/images/';
-      $name_image = time()+rand(1,10000000).'.'.  $image->getClientOriginalExtension(); 
+       $path = 'uploads/images/';
+      $name_image = time()+rand(1,10000000).'.'.$image->getClientOriginalExtension(); 
       Storage::disk('local')->put($path.$name_image, file_get_contents( $image ));
       $category->image = $name_image;
       }

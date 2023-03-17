@@ -3,8 +3,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
  
- 
-
 </style>
  
 
@@ -157,12 +155,17 @@
                         <div class="col-sm-10">
                           <input type="text" class="form-control"   name="Quantity" id="Quantity" value = "{{$item->Quantity}}" readonly="readonly" >
                         </div>
+
+ 
                   </div>
                   <div class="form-group">
-                  <label for="description" class="col-sm-2 col-form-label">description</label>
+                  <!-- <label for="description" class="col-sm-2 col-form-label">description</label>
                         <div class="col-sm-10">
-                          <textarea  type="text" class="form-control" class="span6" rows="3"     name="description" id="description" readonly="readonly" >{{$item->description}}</textarea>
-                        </div>
+                          <textarea  type="editor" class="form-control" class="span6" rows="3"     name="description" id="description" readonly="readonly" > {!! htmlspecialchars($item->description) !!} </textarea>
+                        </div> -->
+                        <div class="form-group" for="description" >
+                <textarea id="editor"   name="description" id="description"   disabled>{{$item->description}}</textarea>
+                </div>
                   </div>
                
                 </div>
@@ -199,14 +202,20 @@
 </div>
      
 </body>
-  <script type="text/javascript">
-     
+         
+ 
+ 
+ 
+   <script type="text/javascript">
+      
   $(function () {
       
     var table = $('.data-table').DataTable({
         searching: false,
         processing: true,
         serverSide: true,
+        pageLength: 3, 
+
         ajax: {
            url:"/{id}/details" ,
            data:{id :  $('#id').val()}
@@ -326,27 +335,7 @@ $(".data-table").on('click', '.mainStarUpdate[data-id]', function (e) {
 
 </body>
 <script>
-
-const allHoverImages = document.querySelectorAll('.hover-container div img');
-const imgContainer = document.querySelector('.img-container');
-
-window.addEventListener('DOMContentLoaded', () => {
-    allHoverImages[0].parentElement.classList.add('active');
-});
-
-allHoverImages.forEach((image) => {
-    image.addEventListener('mouseover', () =>{
-        imgContainer.querySelector('img').src = image.src;
-        resetActiveImg();
-        image.parentElement.classList.add('active');
-    });
-});
-
-function resetActiveImg(){
-    allHoverImages.forEach((img) => {
-        img.parentElement.classList.remove('active');
-    });
-}
+ 
  
 
 </script>

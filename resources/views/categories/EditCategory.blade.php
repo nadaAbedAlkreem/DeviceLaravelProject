@@ -36,7 +36,7 @@
               <!-- form start -->
               @foreach($row as $value)
 
-           <form  method="post" action="{{route('category.ActionEdit', ['id' => $value->id])}}">
+           <form  method="post" action="{{route('category.ActionEdit', ['id' => $value->id])}}" enctype="multipart/form-data" >
               @csrf 
 
 

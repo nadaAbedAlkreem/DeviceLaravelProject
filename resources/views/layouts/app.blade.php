@@ -40,6 +40,5 @@
                                                   @include('asset.js')
                                                   @include('components.footer')
 
-</body>
- 
- </html>
+                                                  </body>
+</html>

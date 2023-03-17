@@ -1,0 +1,219 @@
+<!-- <script src="{{url('plugins/jquery/jquery.min.js')}}"></script> -->
+ <!-- <script src="{{url('plugins/jquery-ui/jquery-ui.min.js')}}"></script> -->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+//   $.widget.bridge('uibutton', $.ui.button)
+ 
+//     $('.sidebar-toggle-btn').PushMenu(options)
+
+ 
+
+//   var init_toaster = function (text) {
+//         toastr.options = {
+//             "closeButton": false,
+//             "positionClass": "toast-top-right",
+//             "showDuration": "1000",
+//             "hideDuration": "1000",
+//             "timeOut": "5000",
+//             "extendedTimeOut": "1000",
+//             "showEasing": "swing",
+//             "hideEasing": "linear",
+//             "showMethod": "fadeIn",
+//             "hideMethod": "fadeOut",
+//             "toastType": "success"
+//         }
+//         toastr.success(text)
+//     }
+//     var showError = function (text) {
+//         toastr.options = {
+//             "closeButton": false,
+//             "positionClass": "toast-top-right",
+//             "showDuration": "1000",
+//             "hideDuration": "1000",
+//             "timeOut": "5000",
+//             "extendedTimeOut": "1000",
+//             "showEasing": "swing",
+//             "hideEasing": "linear",
+//             "showMethod": "fadeIn",
+//             "hideMethod": "fadeOut",
+//             "toastType": "success"
+//         }
+//         toastr.error(text)
+//     }
+
+    <?php if (\Illuminate\Support\Facades\Session::has('message')){ ?>
+        init_toaster("<?php echo \Illuminate\Support\Facades\Session::get('message'); ?>");
+    <?php } ?>
+    <?php if (\Illuminate\Support\Facades\Session::has('error')){ ?>
+        showError("<?php echo \Illuminate\Support\Facades\Session::get('error'); ?>");
+    <?php } ?>
+</script>
+
+<!-- Bootstrap 4 -->
+<script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Sparkline -->
+<script src="{{url('plugins/sparklines/sparkline.js')}}"></script>
+<!-- JQVMap -->
+<!-- <script src="{{url('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{url('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script> -->
+<!-- jQuery Knob Chart -->
+<!-- <script src="{{url('plugins/jquery-knob/jquery.knob.min.js')}}"></script> -->
+<!-- daterangepicker -->
+<script src="{{url('plugins/moment/moment.min.js')}}"></script>
+<script src="{{url('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{url('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url('dist/js/adminlte.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+ <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+      <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<!-- Bootstrap 4 -->
+<script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{url('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{url('plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{url('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- AdminLTE App -->
+ 
+
+@yield("javascript")  
+@yield("ShowProductPaginationJs")
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+<script src="{{url('dist/js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+ 
+<!-- <script src="{{asset('js/jquery.easing.1.3.min.js')}}"></script> -->
+ 
+    
+ <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+ 
+
+    <script type="text/javascript" src="{{asset('js/bxslider.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/script.slider.js')}}"></script>  <!-- JS -->
+    <!-- <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script> -->
+     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('js/jquery.sticky.js')}}"></script>
+    <!-- jQuery easing -->
+    <script src="{{asset('js/jquery.easing.1.3.min.js')}}"></script>
+
+    <!-- Main Script -->
+    <!-- <script src="{{asset('js/main.js')}}"></script> -->
+    
+    <script type="text/javascript" src="{{asset('js/bxslider.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/script.slider.js')}}"></script>
+     <!-- Slider -->
+
+    
+ 
+
+    <script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{url('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+ 
+<!-- Bootstrap 4 -->
+<script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{url('plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Sparkline -->
+<script src="{{url('plugins/sparklines/sparkline.js')}}"></script>
+<!-- JQVMap -->
+<script src="{{url('plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{url('plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{url('plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{url('plugins/moment/moment.min.js')}}"></script>
+<script src="{{url('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{url('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url('dist/js/adminlte.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+ <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+ 
+     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        
+ 
+ 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+          <!-- <script type="text/javascript">
+                   tinymce.init({
+                    selector: 'textarea#editor',
+                  });
+                  </script> -->
+<script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{url('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url('plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{url('plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{url('plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{url('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="{{url('https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css')}}"></script>
+  <script src="{{url('https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js')}}"></script>
+  <script src="{{url('https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js')}}"></script>
+
+<script src="{{url('dist/js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+
+ 

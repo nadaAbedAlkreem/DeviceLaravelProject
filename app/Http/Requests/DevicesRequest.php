@@ -27,8 +27,7 @@ class DevicesRequest extends FormRequest
            'name'=>'required' , 
            'code'=>'required' ,
             'price'=>'required', 
-           'discount'=>'nullable', 
-           'Quantity'=>'nullable', 
+            'Quantity'=>'nullable', 
            'description'=>'required', 
            'category_id'=>'nullable', 
 

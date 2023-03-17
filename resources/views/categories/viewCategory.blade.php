@@ -73,7 +73,7 @@
                   <tr>
                     <th>id</th>
                     <th>name</th>
-                     <th>created_at</th>
+                    <th>created_at</th>
                     <th>updated_at</th>
                     <th>action</th>
 

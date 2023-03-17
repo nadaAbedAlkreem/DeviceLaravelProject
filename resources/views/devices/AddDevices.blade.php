@@ -2,7 +2,9 @@
 @section('content')
 
 
-
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src = "ckeditor/ckeditor.js"></script>
+ 
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -99,7 +101,9 @@
                   <div class="form-group">
                   <label for="description" class="col-sm-2 col-form-label">description</label>
                         <div class="col-sm-10">
-                          <textarea  type="text" class="form-control" class="span6" rows="3"   name="description" id="description" placeholder="description"></textarea>
+                          <!-- <textarea  type="text" class="form-control" class="span6" rows="3"   name="description" id="description" placeholder="description"></textarea> -->
+                          <textarea id="editor" class="form-control"   name="description" id="description" placeholder="description"> </textarea>
+
                         </div>
                   </div>
                   <div>
@@ -141,7 +145,11 @@
   </div>
 
 
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+ <script>
+  CKEDITOR.replace('description');
+  </script>
 
 
 

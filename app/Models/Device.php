@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\image ; 
+use App\Models\Category ; 
 
 class Device extends Model
 {
@@ -17,8 +18,7 @@ class Device extends Model
         'code'   ,
          'description'  ,
          'price'  ,
-         'discount'  ,
-         'Quantity'  ,
+          'Quantity'  ,
 
      ];
      public function image()
@@ -29,6 +29,9 @@ class Device extends Model
      {
       return $this->hasOne('App\Models\image', 'id_Devices' , 'id')->where('is_main' ,'==', 1 );
      }
-   
+     public function category()
+     {
+       return $this->belongsTo('App\Models\Category',  'category_id' , 'id')->where('name' , 'moblie');
+     }
    
 }

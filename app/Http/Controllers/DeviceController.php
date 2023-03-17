@@ -21,15 +21,17 @@ class DeviceController extends Controller
         
       if ($request->ajax()) {
         
-        $data = Device::with("mainImage");
-        
+        $data = Device::with("mainImage") ;
+
+         
     
         return Datatables::of($data)
         
                 ->addIndexColumn()
  
                 ->filter(function ($instance) use ($request) {
-               if (!empty($request->get('category')) && $request->get('category') <> -1 ) {
+                  
+                if (!empty($request->get('category')) && $request->get('category') <> -1 ) {
                     $instance->where('category_id', $request->get('category'));
                 }
                 if (!empty($request->get('search')) ) { 
@@ -37,6 +39,25 @@ class DeviceController extends Controller
                   $instance->where('name','like' , "%$search%");
               }
                 })
+
+
+                //date('d-m-Y', strtotime($user->from_date));
+
+
+                ->addColumn('created_at', function ($data) {  
+                  return  date('d-m-Y', strtotime($data->from_date)); 
+             
+              })
+                ->addColumn('price', function ($data) {  
+                                   
+                  if(!empty($data->valueDiscount)){  
+                    $discount_precent  = $data->price - ( $data->price * $data->valueDiscount ); 
+                      return   ' <ins> $ '.$discount_precent.'</ins><br> <del> $'.$data->price.'</del>' ;  
+                  } else {
+                      return   '<ins> $'.$data->price.'</ins>'   ; 
+                  }
+              })
+           
                 ->addColumn('action', function ($data) {
                   return '
                   <a href="/'.$data->id.'/edit" class="btn btn-xs btn-primary"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -56,22 +77,18 @@ class DeviceController extends Controller
                      ';
                   
                 })
+                ->addColumn('description', function ($data) { 
+                  return $data->description; 
+                      })
+            
              
                 ->addColumn('image', function ($data) { 
-                  // $name =$data->mainImage->image_url ?? ''; 
-                  // // foreach($data as $item )   {
-                  // //   foreach($item->image as $item_ ){
-                  // //     $name = $item_->image_url ; 
-                  // //     dd($name);
-
-            
-                  // //   }
-                  // // }
+   
                    $rowImage = image::where('id_Devices' , $data->id)->where('is_main' , 1 )->first() ;
                    $image = $rowImage->image_url ?? '' ; 
                    $url=asset("/my_custom_symlink_1/$image"); 
-                  return ' <img class="profile-user-img img-fluid "
-                  src='.$url.'   alt="User  picture"> '; 
+                   return ' <img class="profile-user-img img-fluid "
+                   src='.$url.'   alt="User  picture"> '; 
                
                   
 
@@ -79,33 +96,43 @@ class DeviceController extends Controller
               })
           
                 
-              ->rawColumns(['image', 'action'])
+              ->rawColumns(['image', 'action'  , 'description' , 'price'])
               ->make(true);
               }
     
          
          return  view('devices.ViewDevices' ,['data' =>$data_view] ) ; 
        }
+       public function dataAjaxDeviceDropdown(Request $request)
+       {
+          $data = [];
+    
+           if($request->has('q')){
+               $search = $request->q;
+               $data =Category::select("id","name")
+                   ->where('name','LIKE',"%$search%")
+                   ->get();
+           }
+            return response()->json($data);
+       }
 
-   public function formDevices(){
+   public function formDevices()
+   {
     $data_view = Category::select('*')->where('level' , '<>' , '0')->get();
  
     return  view('devices.AddDevices', ['data' =>$data_view] ) ; 
 
    }
-       // if(isset($image)){
-    //   $path = 'uploads/images/';
-    //   $name_image = time()+rand(1,10000000).'.'.$image->getClientOriginalExtension();
-    //  Storage::disk('local')->put($path.$name_image, file_get_contents( $image ));
-    //    $device->image =  $name_image;
-    //   }
-   public function addActionDevice(DevicesRequest $request ){
+ 
+   public function addActionDevice(DevicesRequest $request )
+   {
      $image_ = $request->file('image') ; 
      $category =  $request['category_id'] ;  
       $device = new Device()  ; 
       $device->category_id =$category ;
        if($request['discount']){
-         $device->discount =  $request['discount']  / 100 ;
+         $device->valueDiscount =  $request['discount']  / 100 ;
+
         }
       $device->fill($request->all());
       $status = $device->save() ; 
@@ -127,7 +154,8 @@ class DeviceController extends Controller
    }
 
 
-    public function formEditDevices($id){
+    public function formEditDevices($id)
+    {
        $data_view = Category::where('level' ,'<>' , '0')->get() ; 
       $row = Device::where('id' , $id)->get() ; 
 
@@ -139,21 +167,27 @@ class DeviceController extends Controller
     {
      $id = $request['id'] ; 
      $image = $request->file('image') ; 
-     $request_data = $request->except('image');
+      $request_data = $request->except('image');
       $device = Device::find($id);
+        $discount =   $request['discount'] ; 
      
     if(isset($image)){
-      $path = 'uploads/images/';
+      $image_id = image::select('id')->where('id_Devices' , $id)->first(); 
+       $updateImage = image::find($image_id->id) ; 
+       $path = 'uploads/images/';
       $name_image = time()+rand(1,10000000).'.'.$image->getClientOriginalExtension();
        Storage::disk('local')->put($path.$name_image, file_get_contents( $image ));
-       $request_data['image'] = $name_image;
-     }
+       $updateImage->image_url = $name_image;
+        $test=  $updateImage->update() ; 
+      }
         if(!$device instanceof Device){
            return redirect()->back();
        }
-       if($request['discount']){
-        $device->discount =  $request['discount']  / 100 ;
+       if(isset($discount)){
+        $discount_precentege = $discount / 100 ; 
 
+         $device->valueDiscount = $discount_precentege  ;
+ 
        }
        if ($request['category_id'] != 0){
           $device->category_id =  $request['category_id'] ;
@@ -176,7 +210,8 @@ class DeviceController extends Controller
 
 
 
-   public function viewDetailsDevice($id , Request $request){
+   public function viewDetailsDevice($id , Request $request)
+   {
     $device_details = Device::with('image')->where("id" , $id)->get(); 
  
 
@@ -184,9 +219,6 @@ class DeviceController extends Controller
       $id =$request->get('id');
 
       $data =  image::select('*')->where("id_Devices" , $id);
-      
-       
-  
       return Datatables::of($data)
       
               ->addIndexColumn()
@@ -198,14 +230,12 @@ class DeviceController extends Controller
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                 </svg> </button>
-           
+            
                    ';
                 
               })
            
-              ->addColumn('image', function ($data) { 
-           
-                     
+              ->addColumn('image', function ($data) {    
                 $url=asset("/my_custom_symlink_1/$data->image_url"); 
                 return ' <img class="profile-user-img img-fluid "
                 src='.$url.'   alt="User  picture"> '; 
@@ -214,6 +244,12 @@ class DeviceController extends Controller
 
        
             })
+               
+        
+         
+
+   
+    
             ->addColumn('is_main', function ($data) { 
               if ($data->is_main == 1 ){
                 return  '<button class="mainStarUpdate btn btn-xs  btn btn-light show_confirm"   data-id="'.$data->id.'" >
@@ -228,23 +264,18 @@ class DeviceController extends Controller
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
                 <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
                 </svg>
-                </button>                
-                
-                
-                
-                ' ; 
+                </button> ' ; 
               }
             
                      
-           
-              
-
+    
      
           })
-      
+
+       
         
               
-            ->rawColumns(['image'  ,'is_main','action'])
+            ->rawColumns(['image'  ,'is_main','action'  ])
             ->make(true);
             }
   
@@ -285,11 +316,12 @@ class DeviceController extends Controller
     }
 
     public function actionEditImageMain($id){
-      $id_device = image::select('id_Devices')->where('id' , $id)->get(); 
-      $updateAllZero = image::where('id_Devices' , $id_device)->update(['is_main' => 0 ]); 
-        $main_image_updated = image::where('id' , $id)->update(['is_main' => 1 ]); 
+      $id_Device = image::select('id_Devices')->where('id' , $id)->first(); 
 
-           if($main_image_updated){
+
+          $updateAllZero = image::where('id_Devices', $id_Device->id_Devices)->update(['is_main' => 0 ]) ; 
+          $main_image_updated = image::where('id' , $id)->update(['is_main' => 1 ]); 
+            if($main_image_updated){
             return response()->json([
                 'success' => 'Record updated successfully!'
             ]);

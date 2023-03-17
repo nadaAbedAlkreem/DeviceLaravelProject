@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Auth ; 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 class LoginController extends Controller
 {
     /*
@@ -33,9 +37,29 @@ class LoginController extends Controller
      *
      * @return void
      */
+    
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function view()
+    {
+         return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+
+      $request->validate([
+             'email' => ['required', 'string', 'email', 'max:255' ],
+             'password' => ['required' ]   ,
+        ]);
+        if (Auth::attempt(['email' =>  $request['email'], 'password' => $request['password'] ])) {
+            return redirect()->route('dashboard');
+
+         }
+
     }
 
     public function logout()
@@ -46,7 +70,6 @@ class LoginController extends Controller
     }
 
     
-
-
+ 
 
 }

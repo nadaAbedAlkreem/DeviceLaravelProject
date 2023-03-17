@@ -5,13 +5,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
+//Auth::routes();
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard')->middleware(['Traffic', 'lang' ]);
+Route::get('/login' , [App\Http\Controllers\Auth\LoginController::class,'view'])->name('login');
+Route::post('/login' , [App\Http\Controllers\Auth\LoginController::class,'login'])->name('login');
 
- 
+Route::get('/register' , [App\Http\Controllers\Auth\RegisteredUserController::class,'create'])->name('register');
+Route::post('/register' , [App\Http\Controllers\Auth\RegisteredUserController::class,'store'])->name('store');
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+->name('logout');
+Route::get('/dashboard',[App\Http\Controllers\HomeController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard')->middleware(['Traffic', 'lang' ]);
+
 Route::get('profile',[App\Http\Controllers\ProfileController::class,'profileView'])->name('profile');
 Route::post('update/{id}',[App\Http\Controllers\ProfileController::class,'updateProfile'])->name('update');
 Route::post('insert/setting',[App\Http\Controllers\SettingController::class,'store'])->name('insertSetting');
@@ -36,6 +40,7 @@ Route::get('/imageAdd/{id?}',[App\Http\Controllers\DeviceController::class,'form
 Route::post('/imageAddAction',[App\Http\Controllers\DeviceController::class,'addImageForDevice'])->name('actionImage');
 Route::delete('/DeleteItemImagedevices/{id}',[App\Http\Controllers\DeviceController::class,'deleteImage'])->name('DImagedelete');
 Route::post('/ActionEditImageMain/{id}',[App\Http\Controllers\DeviceController::class,'actionEditImageMain'])->name('devices.ActionEditImageMain');
+Route::get('/select2-autocomplete-ajax-device',[App\Http\Controllers\DeviceController::class,'dataAjaxDeviceDropdown'])->name('select2.device');
 
 // Reviews    deleteImage
 Route::get('/reviews/view/',[App\Http\Controllers\ReviewsController::class,'view'])->name('Reviews.view');
@@ -44,5 +49,23 @@ Route::get('/user/view/',[App\Http\Controllers\UserController::class,'view'])->n
 Route::delete('/user/form/DeleteUser/{id}',[App\Http\Controllers\UserController::class,'delete'])->name('Ddelete');
 // Images  
 Route::get('/imageDevice/view/',[App\Http\Controllers\ImageController::class,'view'])->name('images.view');
+//purchases  
 
+Route::get('/purchases/view/',[App\Http\Controllers\PurchasesController::class,'viewPurchases'])->name('purchases.view');
+// favourites 
+Route::get('/favourites/view/',[App\Http\Controllers\FavouritesController::class,'view'])->name('favourites.view');
 
+/// web public 
+Route::get('/index',[App\Http\Controllers\web\IndexController::class,'index'])->name('index');
+//  login 
+
+Route::get('/create' , [App\Http\Controllers\Auth\RegisteredUserController::class,'create'])->name('create.account');
+// details 
+Route::get('/details' , [App\Http\Controllers\web\IndexController::class,'details'])->name('details');
+// form rating 
+
+Route::post('/details/rate' , [App\Http\Controllers\web\IndexController::class,'actionAddRating'])->name('rating.actionAdd');
+ //  viewAllProductByCategory
+ Route::get('show/allProduct/{id}' , [App\Http\Controllers\web\IndexController::class,'viewAllProductByCategory'])->name('AllProductByCategory');
+//  Route::get('show/allProduct/fetch' , [App\Http\Controllers\web\IndexController::class,'fetchDataProductAjax'])->name('AllProductByCategory.fetch');
+  
